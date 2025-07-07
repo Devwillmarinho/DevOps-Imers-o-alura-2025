@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    container_name: api # Nome do contêiner
+    ports:
+      - "8000:8000" #Mapeia a porta 8000 do host para a porta 8000 do contêiner
+      #(conforme definido no seu Dockerfile com EXPOSE 8000 e CMD)
+    volumes:
+      - .:/app # Monta o diretório atual para /app no contêiner
+      # Permite live-reloading e persiste o banco de dados SQLite no host.
+    environment:
+      - PYTHONUNBUFFERED=1 # Garante que a saída do Python seja exibida em tempo real
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload # Comando para iniciar o servidor Uvicorn
